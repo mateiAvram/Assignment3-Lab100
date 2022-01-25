@@ -2,7 +2,7 @@
 const sqlite = require('sqlite3').verbose();
 let db = my_database('./phones.db');
 
-// Creating our express api called app
+// Creating our express api called api
 var express = require("express");
 var app = express();
 
