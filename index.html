@@ -1,0 +1,304 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+		<link rel="stylesheet" href="style.css">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+		<title>Hava</title>
+	</head>
+
+	<body>
+
+		<div class="navbar">
+			<ul class="nav">
+				<li>
+					<div class="flex-div">
+						<button class="topNavLink nav-font-size nav-button-padding" type="button">
+							<div class="flex-button">
+								Hava
+							</div>
+						</button>
+					</div>
+				</li>
+
+				<li id="searchBar">
+					<div class="flex-div">
+						<input id = "searchField" type="search" placeholder="Search...">
+						<button id="searchButton" type="button">
+							<div class="flex-button">
+								<svg id="searchIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M14.53 15.59a8.25 8.25 0 111.06-1.06l5.69 5.69a.75.75 0 11-1.06 1.06l-5.69-5.69zM2.5 9.25a6.75 6.75 0 1111.74 4.547.746.746 0 00-.443.442A6.75 6.75 0 012.5 9.25z"></path></svg>
+							</div>
+						</button>
+					</div>
+				</li>
+			</ul>
+
+			<ul class = "secondaryNav">
+				<li>
+					<div class="flex-div">
+						<button class="bottomNavLink nav-font-size nav-button-padding" type="button">
+							<div class="flex-button">
+								Smartphones
+							</div>
+						</button>
+					</div>
+				</li>
+
+				<li>
+					<div class="flex-div">
+						<button class="bottomNavLink nav-font-size nav-button-padding" type="button">
+							<div class="flex-button">
+								Tablets
+							</div>
+						</button>
+					</div>
+				</li>
+
+				<li>
+					<div class="flex-div">
+						<button class="bottomNavLink nav-font-size nav-button-padding" type="button">
+							<div class="flex-button">
+								Laptops
+							</div>
+						</button>
+					</div>
+				</li>
+
+				<li>
+					<div class="flex-div">
+						<button class="bottomNavLink nav-font-size nav-button-padding" type="button">
+							<div class="flex-button">
+								Accessories
+							</div>
+						</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col" id="text-font-size">
+					<h1><strong>Apple Smartphones</strong></h1>
+					<section>
+						<h2><strong>Premium Smartphones</strong></h2>
+						<p>The iPhone is a <em>smartphone made by Apple</em> that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface. The iPhone runs the iOS operating system, and in 2021 when the iPhone 13 was introduced, it offered up to 1 TB of storage and a 12-megapixel camera ... <a class="text-link" href="https://searchmobilecomputing.techtarget.com/definition/iPhone"><strong>read more</strong></a></p>
+					</section>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<table id="showcase">
+						<thead>
+							<tr>
+
+								<th class="cellHeader">
+									<div class="flex-tCell">
+											Image
+									</div>
+								</th>
+
+								<th class="cellHeader">
+									<div class="flex-tCell">
+										Brand
+									</div>
+								</th>
+
+								<th id="modelHeader" class="cellHeader">
+									<div class="flex-tCell">
+										Model
+									</div>
+								</th>
+
+								<th class="cellHeader">
+									<div class="flex-tCell">
+										Operating System
+									</div>
+								</th>
+
+								<th id="screensizeHeader" class="cellHeader">
+									<div class="flex-tCell">
+										Screen Size (Inch)
+									</div>
+								</th>
+
+							</tr>
+						</thead>
+						<tbody id="showcaseBody">
+							<tr id="formTableRow">
+								<td colspan="5">
+									<form class="flex-form">
+
+										<div class="flex-div-col">
+											<label for="image"><strong>Image</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="image" class="input-form" type="text" name="image">
+											</div>
+										</div>
+
+										<div class="flex-div-col">
+											<label for="brand"><strong>Brand</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="brand" class="input-form" type="text" name="brand">
+											</div>
+										</div>
+
+										<div class="flex-div-col">
+											<label for="model"><strong>Model</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="model" class="input-form" type="text" name="model">
+											</div>
+										</div>
+
+										<div class="flex-div-col">
+											<label for="os"><strong>Operating System</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="os" class="input-form" type="text" name="os">
+											</div>
+										</div>
+
+										<div class="flex-div-col">
+											<label for="screensize"><strong>Screen Size</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="screensize" class="input-form" type="number" name="screensize">
+											</div>
+										</div>
+
+										<div class="flex-div-col">
+											<div class="flex-div flex-full-width flex-submit">
+												<button id=submit class="form-button" type="button">Submit</button>
+											</div>
+										</div>
+
+									</form>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<div class="flex-div">
+						<button type="reset" id="resetShowcaseTable" class="form-button">Reset Table</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col" id="text-font-size">
+					<section>
+						<h2><strong>Top Performing</strong></h2>
+						<p class = "indent">The iPhone is a <span class = "text-italic">smartphone made by Apple</span> that combines a computer, iPod, digital camera and cellular phone into one device with a touchscreen interface. The iPhone runs the iOS operating system, and in 2021 when the iPhone 13 was introduced, it offered up to 1 TB of storage and a 12-megapixel camera.</p>
+						<ol class = "olFont-styling">
+							<li>iPhone 13 Pro Max</li>
+							<li>iPhone 13</li>
+							<li>iPhone 12</li>
+						</ol>
+						<dl>
+							<dt><h3>iPhone 13 Pro Max</h3></dt>
+							<dd><p>The iPhone 13 Pro Max is Apple's biggest phone in the lineup with a massive, 6.7" screen that for the first time in an iPhone comes with 120Hz ProMotion display that ensures super smooth scrolling.In addition, the A15 processor brings more speed and efficiency to every task.</p></dd>
+
+							<dt><h3>iPhone 13</h3></dt>
+							<dd><p>The iPhone 13 and iPhone 13 mini iterate upon the successful iPhone 12 with new cameras and longer battery life. The notch has been reduced in size, and the rear camera module now sits at a diagonal. In addition, the A15 processor brings more speed and efficiency to every task.</p></dd>
+
+							<dt><h3>iPhone 12</h3></dt>
+							<dd><p>Apple iPhone 12 is the bigger version of the regular iPhone 12 mini. The handset's hardware include a 6.1-inch OLED display, 5nm Apple A14 Bionic processor, and a dual-camera setup with a large sensor. 5G and Face ID are on board, too.</p></dd>
+						</dl>
+					</section>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<table id="scrollable">
+						<caption id="scrollableCaption" class="tableCaption"><strong>Accessible Smartphones</strong></caption>
+						<tbody>
+							<tr>
+
+								<td>
+									<div class="flex-tCell">
+										<button class="scrollTable-buttons" type="button">
+											<div class="flex-button">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/></svg>
+											</div>
+										</button>
+									</div>
+								</td>
+
+								<td id="scrollableCol">
+									<div class="flex-tCell">
+										<img class="tableImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/IPhone_X_vector.svg/440px-IPhone_X_vector.svg.png">
+										<div class="description">
+											<strong>Samsung Galaxy A52</strong><br><strong id="price">Price (EUR): 400</strong>
+										</div>
+									</div>
+								</td>
+
+								<td id="scrollableCol">
+									<div class="flex-tCell">
+										<img class="tableImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/IPhone_X_vector.svg/440px-IPhone_X_vector.svg.png">
+										<div class="description">
+											<strong>Samsung Galaxy A42</strong><br><strong id="price">Price (EUR): 300</strong>
+										</div>
+									</div>
+								</td>
+
+								<td id="scrollableCol">
+									<div class="flex-tCell">
+										<img class="tableImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/IPhone_X_vector.svg/440px-IPhone_X_vector.svg.png">
+										<div class="description">
+											<strong>Samsung Galaxy A32</strong><br><strong id="price">Price (EUR): 200</strong>
+										</div>
+									</div>
+								</td>
+
+								<td id="scrollableCol">
+									<div class="flex-tCell">
+										<img class="tableImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/IPhone_X_vector.svg/440px-IPhone_X_vector.svg.png">
+										<div class="description">
+											<strong>Samsung Galaxy S21</strong><br><strong id="price">Price (EUR): 1000</strong>
+										</div>
+									</div>
+								</td>
+
+								<td>
+									<div class="flex-tCell">
+										<button class="scrollTable-buttons" type="button">
+											<div class="flex-button">
+												<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-arrow-right-circle-fill" viewBox="0 0 16 16"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z"/></svg>
+											</div>
+										</button>
+									</div>
+								</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col">
+					<pre id="disclaimer">© 2022 Matei & Matei, <abbr title="Limited Liability Company">LLC</abbr>. All rights reserved.</pre>
+				</div>
+			</div>
+		</div>
+
+		<footer>
+			<nav>
+				<a class="footerLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">About Us</a>
+				<a class="footerLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Contact</a>
+				<a class="footerLink" href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">Copyright</a>
+			</nav>
+		</footer>
+
+	</body>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="script.js"></script>
+
+</html>
