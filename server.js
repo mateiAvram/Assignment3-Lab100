@@ -1,40 +1,14 @@
-// ###############################################################################
-// Web Technology at VU University Amsterdam
-// Assignment 3
-//
-// The assignment description is available on Canvas. 
-// Please read it carefully before you proceed.
-//
-// This is a template for you to quickly get started with Assignment 3.
-// Read through the code and try to understand it.
-//
-// Have you read the zyBook chapter on Node.js?
-// Have you looked at the documentation of sqlite?
-// https://www.sqlitetutorial.net/sqlite-nodejs/
-//
-// Once you are familiar with Node.js and the assignment, start implementing
-// an API according to your design by adding routes.
-
-
-// ###############################################################################
-//
-// Database setup:
-// First: Our code will open a sqlite database file for you, and create one if it not exists already.
-// We are going to use the variable "db' to communicate to the database:
-// If you want to start with a clean sheet, delete the file 'phones.db'.
-// It will be automatically re-created and filled with one example item.
-
+// Database Parameters
 const sqlite = require('sqlite3').verbose();
 let db = my_database('./phones.db');
 
-// ###############################################################################
-// The database should be OK by now. Let's setup the Web server so we can start
-// defining routes.
-//
-// First, create an express application `app`:
-
+// Creating our express api called app
 var express = require("express");
 var app = express();
+
+// Logs requests in terminal
+var morgan = require("morgan");
+app.use(morgan("dev"));
 
 // We need some middleware to parse JSON data in the body of our HTTP requests:
 var bodyParser = require("body-parser");
@@ -43,7 +17,7 @@ app.use(bodyParser.json());
 
 // ###############################################################################
 // Routes
-// 
+//
 // TODO: Add your routes here and remove the example routes once you know how
 //       everything works.
 // ###############################################################################
@@ -57,7 +31,7 @@ app.get("/hello", function(req, res) {
     // This example returns valid JSON in the response, but does not yet set the
     // associated HTTP response header.  This you should do yourself in your
     // own routes!
-    res.json(response_body) ;
+    res.send("<h1> hello </h1>") ;
 });
 
 // This route responds to http://localhost:3000/db-example by selecting some data from the
@@ -66,7 +40,7 @@ app.get("/hello", function(req, res) {
 app.get('/db-example', function(req, res) {
     // Example SQL statement to select the name of all products from a specific brand
     db.all(`SELECT * FROM phones WHERE brand=?`, ['Fairphone'], function(err, rows) {
-	
+
     	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
     	// TODO: set the appropriate HTTP response headers and HTTP response codes here.
 

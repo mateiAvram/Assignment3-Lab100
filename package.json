@@ -1,0 +1,29 @@
+{
+  "name": "assignment3-lab100",
+  "version": "1.0.0",
+  "description": "Assignment3 Lab No. 100 Authors: Matei Dogariu and Matei Avram",
+  "main": "server.js",
+  "scripts": {
+    "test": "/test/",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paRa95-dev/Assignment3-Lab100.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paRa95-dev/Assignment3-Lab100/issues"
+  },
+  "homepage": "https://github.com/paRa95-dev/Assignment3-Lab100#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "morgan": "^1.10.0",
+    "node-addon-api": "^4.3.0",
+    "node-gyp": "^8.4.1",
+    "node-pre-gyp": "^0.17.0",
+    "sqlite3": "^4.2.0",
+    "underscore": "^1.13.2"
+  }
+}
