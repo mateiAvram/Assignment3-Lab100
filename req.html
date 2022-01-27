@@ -1,0 +1,214 @@
+<!doctype html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+		<title>Hava</title>
+	</head>
+
+	<body>
+
+		<div class="container" style="height: 100vh;">
+			<div class="row" style="height: 100%;">
+				<div class="col-md-1">
+
+				</div>
+				<div class="col-md-9" style="display: flex; align-items: center; justify-content: center;">
+					<form style="width: 100%;">
+						<div class="form-group">
+							<label for="phoneID">id</label>
+							<input type="text" class="form-control" id="phoneID">
+						</div>
+						<div class="form-group">
+							<button id="getPhoneByID" style="width: 100%;" type="button" class="btn btn-primary">GET Phone by ID</button>
+						</div>
+						<div class="form-group">
+							<button id="getPhones" style="width: 100%;" type="button" class="btn btn-primary">GET all Phones</button>
+						</div>
+						<div class="form-group">
+							<label for="updatePhoneID">id</label>
+							<input type="text" class="form-control" id="updatePhoneID">
+							<label for="brand">brand</label>
+							<input type="text" class="form-control" id="brand">
+							<label for="model">model</label>
+							<input type="text" class="form-control" id="model">
+							<label for="os">os</label>
+							<input type="text" class="form-control" id="os">
+							<label for="image">image</label>
+							<input type="text" class="form-control" id="image">
+							<label for="screensize">screen size</label>
+							<input type="text" class="form-control" id="screensize">
+						</div>
+						<div class="form-group" style="display: flex; justify-content: space-between">
+							<button id="postPhone" style="width: 48%;" type="button" class="btn btn-primary">POST Phone</button>
+							<button id="updatePhone" style="width: 48%;" type="button" class="btn btn-primary">PUT Phone</button>
+						</div>
+						<div class="form-group">
+							<label for="deletePhoneID">id</label>
+							<input type="text" class="form-control" id="deletePhoneID">
+						</div>
+						<div class="form-group">
+							<button id="deletePhone" style="width: 100%;" type="button" class="btn btn-primary">DELETE Phone by ID</button>
+						</div>
+					</form>
+				</div>
+				<div class="col-md-1">
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</body>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function() {
+
+			$("#getPhoneByID").click(function() {
+
+				id = $("#phoneID").val();
+
+				$.ajax({
+					type: "GET",
+					url: 'http://localhost:8080/phone?id=' + id,
+					dataType: "json",
+					contentType: 'application/json',
+					error: function() {
+						alert("Connection to server error.");
+					},
+					success: function(resp) {
+
+						alert("brand: " + resp.brand);
+
+						$("#phoneID").val('');
+						// $("#os").val('');
+						// $("#image").val('');
+						// $("#brand").val('');
+						// $("#model").val('');
+						// $("#screensize").val('');
+					}
+				});
+			});
+
+			$("#getPhones").click(function() {
+				$.ajax({
+					type: "GET",
+					url: 'http://localhost:8080/phones',
+					dataType: "json",
+					contentType: 'application/json',
+					error: function() {
+						alert("Connection to server error.");
+					},
+					success: function(resp) {
+						window.location.replace("http://localhost:8080/phones");
+					}
+				});
+			});
+
+			$("#postPhone").click(function() {
+				os = $("#os").val();
+				image = $("#image").val();
+				brand = $("#brand").val();
+				model = $("#model").val();
+				screensize = $("#screensize").val();
+
+				obj = {
+					brand: brand,
+					model: model,
+					os: os,
+					image: image,
+					screensize: screensize
+				}
+
+				$.ajax({
+					type: "POST",
+					url: 'http://localhost:8080/postPhone',
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(obj),
+					error: function() {
+						alert("Connection to server error.");
+					},
+					success: function(resp) {
+
+						id = $("#updatePhoneID").val('');
+						os = $("#os").val('');
+						image = $("#image").val('');
+						brand = $("#brand").val('');
+						model = $("#model").val('');
+						screensize = $("#screensize").val('');
+
+						alert(" introduced success");
+					}
+				});
+			});
+
+			$("#updatePhone").click(function() {
+
+				id = $("#updatePhoneID").val();
+				os = $("#os").val();
+				image = $("#image").val();
+				brand = $("#brand").val();
+				model = $("#model").val();
+				screensize = $("#screensize").val();
+
+				obj = {
+					id: id,
+					brand: brand,
+					model: model,
+					os: os,
+					image: image,
+					screensize: screensize
+				}
+
+				$.ajax({
+					type: "PUT",
+					url: 'http://localhost:8080/update',
+					dataType: "json",
+					contentType: 'application/json',
+					data: JSON.stringify(obj),
+					error: function() {
+						alert("Connection to server error.");
+					},
+					success: function(resp) {
+
+						id = $("#updatePhoneID").val('');
+						os = $("#os").val('');
+						image = $("#image").val('');
+						brand = $("#brand").val('');
+						model = $("#model").val('');
+						screensize = $("#screensize").val('');
+
+						alert("success");
+					}
+				});
+			});
+
+			$("#deletePhone").click(function() {
+
+				id = $("#deletePhoneID").val();
+
+				$.ajax({
+					type: "DELETE",
+					url: 'http://localhost:8080/delete?id=' + id,
+					dataType: "json",
+					contentType: 'application/json',
+					error: function() {
+						alert("Connection to server error.");
+					},
+					success: function(resp) {
+						alert("success");
+					}
+				});
+			});
+		});
+	</script>
+
+</html>
