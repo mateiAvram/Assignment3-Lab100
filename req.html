@@ -77,7 +77,7 @@
 
 				$.ajax({
 					type: "GET",
-					url: 'http://localhost:8080/phone?id=' + id,
+					url: 'http://localhost:8080/rest/phone?id=' + id,
 					dataType: "json",
 					contentType: 'application/json',
 					error: function() {
@@ -100,14 +100,14 @@
 			$("#getPhones").click(function() {
 				$.ajax({
 					type: "GET",
-					url: 'http://localhost:8080/phones',
+					url: 'http://localhost:8080/rest/phones',
 					dataType: "json",
 					contentType: 'application/json',
 					error: function() {
 						alert("Connection to server error.");
 					},
 					success: function(resp) {
-						window.location.replace("http://localhost:8080/phones");
+						window.location.replace("http://localhost:8080/rest/phones");
 					}
 				});
 			});
@@ -129,7 +129,7 @@
 
 				$.ajax({
 					type: "POST",
-					url: 'http://localhost:8080/postPhone',
+					url: 'http://localhost:8080/rest/post',
 					dataType: "json",
 					contentType: 'application/json',
 					data: JSON.stringify(obj),
@@ -170,7 +170,7 @@
 
 				$.ajax({
 					type: "PUT",
-					url: 'http://localhost:8080/update',
+					url: 'http://localhost:8080/rest/update',
 					dataType: "json",
 					contentType: 'application/json',
 					data: JSON.stringify(obj),
@@ -197,7 +197,7 @@
 
 				$.ajax({
 					type: "DELETE",
-					url: 'http://localhost:8080/delete?id=' + id,
+					url: 'http://localhost:8080/rest/delete?id=' + id,
 					dataType: "json",
 					contentType: 'application/json',
 					error: function() {

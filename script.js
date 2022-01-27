@@ -3,7 +3,7 @@ $(document).ready(function() {
 	function updateShowcaseTable(){
 		$.ajax({
 			type: "GET",
-			url: 'https://wt.ops.labs.vu.nl/api22/acc840b2',
+			url: 'http://localhost:8080/rest/phones',
 			dataType: "json",
 			contentType: 'application/json',
 			error: function() {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 			}
 			$.ajax({
 				type: "POST",
-				url: 'https://wt.ops.labs.vu.nl/api22/acc840b2',
+				url: 'http://localhost:8080/rest/post',
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify(obj),
@@ -59,20 +59,20 @@ $(document).ready(function() {
 
 	});
 
-	$("#resetShowcaseTable").click(function() {
-		$.ajax({
-			type: "GET",
-			url: 'https://wt.ops.labs.vu.nl/api22/acc840b2/reset',
-			dataType: "json",
-			contentType: 'application/json',
-			error: function() {
-				alert("Connection to server error.");
-			},
-			success: function(resp) {
-				updateShowcaseTable();
-			}
-		});
-	});
+	// $("#resetShowcaseTable").click(function() {
+	// 	$.ajax({
+	// 		type: "GET",
+	// 		url: 'https://wt.ops.labs.vu.nl/api22/acc840b2/reset',
+	// 		dataType: "json",
+	// 		contentType: 'application/json',
+	// 		error: function() {
+	// 			alert("Connection to server error.");
+	// 		},
+	// 		success: function(resp) {
+	// 			updateShowcaseTable();
+	// 		}
+	// 	});
+	// });
 
 	$("#modelHeader").click(function() {
 		sortShowcase("showcase", 2, "asc", false);
