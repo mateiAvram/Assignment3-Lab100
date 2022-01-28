@@ -151,8 +151,7 @@ router.post('/post', function(req, res) {
 					console.log(err.message);
 					res.status(500).send(err);
 				} else {
-
-					res.sendStatus(201);
+					res.status(201).send({message: 'successful'});
 				}
 			});
 		});
