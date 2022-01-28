@@ -124,7 +124,7 @@ $(document).ready(function() {
 
 	$("#resetShowcaseTable").click(function() {
 		$.ajax({
-			type: "GET",
+			type: "PUT",
 			url: 'http://localhost:8080/hava/reset',
 			dataType: "json",
 			contentType: 'application/json',

@@ -69,49 +69,62 @@ router.get("/phone", function(req, res) {
 
 	const id = req.query.id;
 
-	// Fetch specified element from database than pass it to response
-	sqlQuery = "SELECT * FROM phones WHERE id=" + id;
+	if(id == "") {
+		res.sendStatus(400);
+	} else {
+		sqlQuery = "SELECT * FROM phones WHERE id=?";
+		data = [id];
 
-	db.serialize(function() {
-		db.get(sqlQuery, function(err, row) {
+		db.serialize(function() {
+			db.get(sqlQuery, data, function(err, row) {
 
-			if(err) {
-				console.error(err.message);
-			}
+				if(err) {
 
-			phone = {
-				id: id,
-				brand: row.brand,
-				model: row.model,
-				os: row.os,
-				image: row.image,
-				screensize: row.screensize
-			}
+					console.log(err.message);
+					res.status(500).send(err);
+				} else if(typeof row === 'undefined') {
 
-			res.send(phone);
+					res.sendStatus(404);
+				} else {
+
+					phone = {
+						id: id,
+						brand: row.brand,
+						model: row.model,
+						os: row.os,
+						image: row.image,
+						screensize: row.screensize
+					}
+
+					res.status(200).send(phone);
+				}
+			});
 		});
-	});
+	}
 });
 
 router.get("/phones", function(req, res) {
 
 	db.serialize(function() {
 
-		// Fetch all phones from database than pass it to response as an array
 		sqlQuery = "SELECT * FROM phones";
 
 		db.all(sqlQuery, function(err, rows) {
 
 			if(err) {
-				console.error(err.message);
+
+				console.log(err.message);
+				res.status(400).send(err);
+			} else {
+
+				phones = [];
+				rows.forEach((row) => {
+					phones.push({id: row.id, brand: row.brand, model: row.model, os: row.os, image: row.image, screensize: row.screensize});
+				});
+
+				res.status(200).send(phones);
+
 			}
-
-			phones = [];
-			rows.forEach((row) => {
-				phones.push({id: row.id, brand: row.brand, model: row.model, os: row.os, image: row.image, screensize: row.screensize});
-			});
-
-			res.send(phones);
 		});
 	});
 });
@@ -124,21 +137,26 @@ router.post('/post', function(req, res) {
 	image = req.body.image;
 	screensize = req.body.screensize;
 
-	db.serialize(function() {
+	if(brand == "" || model == "" || os == "" || image == "" || screensize == "") {
+		res.sendStatus(400);
+	} else {
+		db.serialize(function() {
 
-		sqlQuery = "INSERT INTO phones(brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)";
-		data = [brand, model, os, image, screensize];
+			sqlQuery = "INSERT INTO phones(brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)";
+			data = [brand, model, os, image, screensize];
 
-		db.run(sqlQuery, data, function(err) {
-			if(err){
-				console.error(err.message);
-			} else {
-				res.send({
-					message : 'successful'
-				});
-			}
+			db.run(sqlQuery, data, function(err) {
+				if(err) {
+
+					console.log(err.message);
+					res.status(500).send(err);
+				} else {
+
+					res.sendStatus(201);
+				}
+			});
 		});
-	});
+	}
 });
 
 router.put('/update', function(req, res){
@@ -150,77 +168,129 @@ router.put('/update', function(req, res){
 	image = req.body.image;
 	screensize = req.body.screensize;
 
-	db.serialize(function() {
+	if(id == "") {
+		res.sendStatus(400);
+	} else {
 
-		sqlQuery = "UPDATE phones SET brand = ?, model = ?, os = ?, image = ?, screensize = ? WHERE id = ?";
-		data = [brand, model, os, image, screensize, id];
+		db.serialize(function() {
 
-		db.run(sqlQuery, data, function(err){
-			if(err){
-				console.error(err.message);
-			}
+			sqlQuery = "SELECT * FROM phones WHERE id=?";
+			data = [id];
+
+			db.get(sqlQuery, data, function(err, row) {
+
+				if(err){
+
+					console.error(err.message);
+					res.status(500).send(err);
+				} else if(typeof row === 'undefined') {
+
+					res.sendStatus(404);
+				} else {
+
+					db.serialize(function() {
+						sqlQuery = "UPDATE phones SET brand = ?, model = ?, os = ?, image = ?, screensize = ? WHERE id = ?";
+						data = [brand, model, os, image, screensize, id];
+
+						db.run(sqlQuery, data, function(err) {
+							if(err){
+
+								console.error(err.message);
+								res.status(500).send(err);
+							} else {
+
+								res.sendStatus(204);
+							}
+						});
+					});
+				}
+			});
 		});
-
-		sqlQuery = "SELECT * FROM phones WHERE id=" + id;
-
-		db.get(sqlQuery, function(err, row) {
-
-			if(err){
-				console.error(err.message);
-			}
-
-			phone = {
-				id: id,
-				brand: row.brand,
-				model: row.model,
-				os: row.os,
-				image: row.image,
-				screensize: row.screensize
-			}
-
-			res.send(phone) ;
-		});
-	});
+	}
 });
 
-router.delete('/delete', function(req, res){
+router.delete('/delete', function(req, res) {
 
 	const id = req.query.id;
 
-	db.serialize(function() {
+	if(id == "") {
 
-		sqlQuery = "DELETE FROM phones WHERE id = ?";
+		res.sendStatus(400);
+	} else {
 
-		db.run(sqlQuery, [id], function(err){
+		db.serialize(function() {
 
-			if(err){
-				console.error(err.message);
-			} else {
-				res.send({
-					message : 'successful'
-				});
-			}
+			sqlQuery = "SELECT * FROM phones WHERE id=?";
+			data = [id];
+
+			db.get(sqlQuery, data, function(err, row) {
+
+				if(err){
+
+					console.error(err.message);
+					res.status(500).send(err);
+				} else if(typeof row === 'undefined') {
+
+					res.sendStatus(404);
+				} else {
+
+					db.serialize(function() {
+
+						sqlQuery = "DELETE FROM phones WHERE id = ?";
+
+						db.run(sqlQuery, [id], function(err){
+
+							if(err){
+
+								console.error(err.message);
+								res.status(500).send(err);
+							} else {
+								res.sendStatus(204);
+							}
+						});
+					});
+				}
+			});
 		});
-	});
+	}
 });
 
-router.get('/reset', function(req, res){
+router.put('/reset', function(req, res){
 
 	db.serialize(function() {
 
-		sqlQuery = "DELETE FROM phones";
+		sqlQuery = "DROP TABLE phones";
 
 		db.run(sqlQuery, function(err){
 
 			if(err){
 				console.error(err.message);
+				res.status(500).send(err);
 			} else {
 
-				db.run(`INSERT INTO phones (brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)`,
-				["Fairphone", "FP3", "Android", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Fairphone_3_modules_on_display.jpg/320px-Fairphone_3_modules_on_display.jpg", "5.65"]);
+				db.serialize(function() {
 
-				res.send({
-					message : 'successful'
+					db.run(`CREATE TABLE IF NOT EXISTS "phones" ("id" INTEGER NOT NULL UNIQUE, "brand" TEXT NOT NULL, "model" TEXT NOT NULL, "os" TEXT NOT NULL, "image" TEXT NOT NULL, "screensize" INTEGER NOT NULL, PRIMARY KEY("id" AUTOINCREMENT))`, function(err) {
+						if(err){
+
+							console.error(err.message);
+							res.status(500).send(err);
+						} else {
+
+							db.serialize(function() {
+								db.run(`INSERT INTO phones (brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)`,["Fairphone", "FP3", "Android", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Fairphone_3_modules_on_display.jpg/320px-Fairphone_3_modules_on_display.jpg", "5.65"], function(err) {
+									if(err){
+
+										console.error(err.message);
+										res.status(500).send(err);
+									} else {
+
+										res.sendStatus(204);
+									}
+								});
+							});
+						}
+					});
 				});
 			}
 		});
