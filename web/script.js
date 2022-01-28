@@ -3,7 +3,7 @@ $(document).ready(function() {
 	function updateShowcaseTable(){
 		$.ajax({
 			type: "GET",
-			url: 'http://localhost:8080/rest/phones',
+			url: 'http://localhost:8080/hava/phones',
 			dataType: "json",
 			contentType: 'application/json',
 			error: function() {
@@ -13,7 +13,7 @@ $(document).ready(function() {
 				$("tr").remove("#showcaseRow");
 				for (i = resp.length - 1; i >= 0; i = i - 1) {
 					phone = resp[i];
-					$("#showcaseBody").prepend("<tr id='showcaseRow'><td><div class='flex-tCell'><figure><img class='tableImg' src='" + resp[i].image + "'><figcaption><strong>Black</strong></figcaption></figure></div></td><td>" + resp[i].brand + "</td><td>" + resp[i].model + "</td><td>" + resp[i].os + "</td><td>" + resp[i].screensize + "</td></tr>");
+					$("#showcaseBody").prepend("<tr id='showcaseRow'><td>" + resp[i].id + "<td><div class='flex-tCell'><figure><img class='tableImg' src='" + resp[i].image + "'><figcaption><strong>Black</strong></figcaption></figure></div></td><td>" + resp[i].brand + "</td><td>" + resp[i].model + "</td><td>" + resp[i].os + "</td><td>" + resp[i].screensize + "</td><td><button id='delete_" + resp[i].id + "' class='delete form-button' style='background-color: rgb(255, 77, 77); border: 3px solid rgb(255, 77, 77); color: rgb(26, 26, 26); width: 50%;' type='button'>Delete</button></td></tr>");
 				}
 				$("#os").val('');
 				$("#image").val('');
@@ -44,7 +44,7 @@ $(document).ready(function() {
 			}
 			$.ajax({
 				type: "POST",
-				url: 'http://localhost:8080/rest/post',
+				url: 'http://localhost:8080/hava/post',
 				dataType: "json",
 				contentType: 'application/json',
 				data: JSON.stringify(obj),
@@ -59,20 +59,83 @@ $(document).ready(function() {
 
 	});
 
-	// $("#resetShowcaseTable").click(function() {
-	// 	$.ajax({
-	// 		type: "GET",
-	// 		url: 'https://wt.ops.labs.vu.nl/api22/acc840b2/reset',
-	// 		dataType: "json",
-	// 		contentType: 'application/json',
-	// 		error: function() {
-	// 			alert("Connection to server error.");
-	// 		},
-	// 		success: function(resp) {
-	// 			updateShowcaseTable();
-	// 		}
-	// 	});
-	// });
+	$("#update").click(function() {
+
+		id = $("#phoneID").val();
+		os = $("#os").val();
+		image = $("#image").val();
+		brand = $("#brand").val();
+		model = $("#model").val();
+		screensize = $("#screensize").val();
+
+		if( id == "" || os == "" || image == "" || brand == "" || model == "" || screensize == "") {
+			alert("All input fields are required");
+		} else {
+			obj = {
+				id: id,
+				brand: brand,
+				model: model,
+				os: os,
+				image: image,
+				screensize: screensize
+			}
+			$.ajax({
+				type: "PUT",
+				url: 'http://localhost:8080/hava/update',
+				dataType: "json",
+				contentType: 'application/json',
+				data: JSON.stringify(obj),
+				error: function() {
+					alert("Connection to server error.");
+				},
+				success: function(resp) {
+
+					id = $("#phoneID").val('');
+					os = $("#os").val('');
+					image = $("#image").val('');
+					brand = $("#brand").val('');
+					model = $("#model").val('');
+					screensize = $("#screensize").val('');
+
+					updateShowcaseTable();
+				}
+			});
+		}
+
+	});
+
+	$(document).on("click", ".delete", function(event) {
+
+		phoneID = event.target.id.substring(7);
+
+		$.ajax({
+			type: "DELETE",
+			url: 'http://localhost:8080/hava/delete?id=' + phoneID,
+			dataType: "json",
+			contentType: 'application/json',
+			error: function() {
+				alert("Connection to server error.");
+			},
+			success: function(resp) {
+				updateShowcaseTable();
+			}
+		});
+	});
+
+	$("#resetShowcaseTable").click(function() {
+		$.ajax({
+			type: "GET",
+			url: 'http://localhost:8080/hava/reset',
+			dataType: "json",
+			contentType: 'application/json',
+			error: function() {
+				alert("Connection to server error.");
+			},
+			success: function(resp) {
+				updateShowcaseTable();
+			}
+		});
+	});
 
 	$("#modelHeader").click(function() {
 		sortShowcase("showcase", 2, "asc", false);

@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-		<link rel="stylesheet" type="text/css" href="/style.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 		<title>Hava</title>
 	</head>
@@ -96,6 +96,12 @@
 
 								<th class="cellHeader">
 									<div class="flex-tCell">
+											#
+									</div>
+								</th>
+
+								<th class="cellHeader">
+									<div class="flex-tCell">
 											Image
 									</div>
 								</th>
@@ -124,12 +130,25 @@
 									</div>
 								</th>
 
+								<th class="cellHeader">
+									<div class="flex-tCell">
+										Options
+									</div>
+								</th>
+
 							</tr>
 						</thead>
 						<tbody id="showcaseBody">
 							<tr id="formTableRow">
-								<td colspan="5">
+								<td colspan="7">
 									<form class="flex-form">
+
+										<div class="flex-div-col">
+											<label for="phoneID"><strong>ID</strong></label>
+											<div class="flex-div flex-full-width">
+												<input id="phoneID" class="input-form" type="text" name="image">
+											</div>
+										</div>
 
 										<div class="flex-div-col">
 											<label for="image"><strong>Image</strong></label>
@@ -167,8 +186,9 @@
 										</div>
 
 										<div class="flex-div-col">
-											<div class="flex-div flex-full-width flex-submit">
-												<button id=submit class="form-button" type="button">Submit</button>
+											<div class="flex-div flex-full-width flex-submit" style="justify-content: space-between;">
+												<button id="submit" class="form-button" type="button" style="width: 48%;">Submit</button>
+												<button id="update" class="form-button" type="button" style="width: 48%;">Update</button>
 											</div>
 										</div>
 
@@ -299,6 +319,6 @@
 	</body>
 
 	<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="/script.js"></script>
+	<script type="text/javascript" src="script.js"></script>
 
 </html>

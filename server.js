@@ -54,10 +54,7 @@ app.use(bodyParser.json());
 // GET html Pages
 // #############################################################################
 
-router.get("/index", function(req, res) {
-
-	res.sendFile(__dirname + '/req.html');
-});
+app.use(express.static("web"));
 
 // #############################################################################
 // API
@@ -137,7 +134,7 @@ router.post('/post', function(req, res) {
 				console.error(err.message);
 			} else {
 				res.send({
-					message : 'successfull'
+					message : 'successful'
 				});
 			}
 		});
@@ -200,7 +197,30 @@ router.delete('/delete', function(req, res){
 				console.error(err.message);
 			} else {
 				res.send({
-					message : 'successfull'
+					message : 'successful'
+				});
+			}
+		});
+	});
+});
+
+router.get('/reset', function(req, res){
+
+	db.serialize(function() {
+
+		sqlQuery = "DELETE FROM phones";
+
+		db.run(sqlQuery, function(err){
+
+			if(err){
+				console.error(err.message);
+			} else {
+
+				db.run(`INSERT INTO phones (brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)`,
+				["Fairphone", "FP3", "Android", "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Fairphone_3_modules_on_display.jpg/320px-Fairphone_3_modules_on_display.jpg", "5.65"]);
+
+				res.send({
+					message : 'successful'
 				});
 			}
 		});
