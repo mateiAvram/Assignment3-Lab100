@@ -13,12 +13,12 @@ function my_database(filename) {
 	// Create our phones table if it does not exist already:
 	db.serialize(() => {
 		db.run(`
-			CREATE TABLE IF NOT EXISTS "phones" (
-			"id" INTEGER NOT NULL UNIQUE,
-			"brand" TEXT NOT NULL,
-			"model" TEXT NOT NULL,
-			"os" TEXT NOT NULL,
-			"image" TEXT NOT NULL,
+			CREATE TABLE IF NOT EXISTS phones
+			("id" INTEGER NOT NULL UNIQUE,
+			"brand" CHAR(100) NOT NULL,
+			"model" CHAR(100) NOT NULL,
+			"os" CHAR(10) NOT NULL,
+			"image" CHAR(254) NOT NULL,
 			"screensize" INTEGER NOT NULL,
 			PRIMARY KEY("id" AUTOINCREMENT)
 			)`);
@@ -72,10 +72,12 @@ router.get("/phone", function(req, res) {
 	if(id == "") {
 		res.sendStatus(400);
 	} else {
-		sqlQuery = "SELECT * FROM phones WHERE id=?";
-		data = [id];
 
 		db.serialize(function() {
+			
+			sqlQuery = "SELECT * FROM phones WHERE id=?";
+			data = [id];
+
 			db.get(sqlQuery, data, function(err, row) {
 
 				if(err) {
@@ -131,11 +133,13 @@ router.get("/phones", function(req, res) {
 
 router.post('/post', function(req, res) {
 
-	brand = req.body.brand;
-	model = req.body.model;
-	os = req.body.os;
-	image = req.body.image;
-	screensize = req.body.screensize;
+	phone = req.body;
+
+	brand = phone.brand;
+	model = phone.model;
+	os = phone.os;
+	image = phone.image;
+	screensize = phone.screensize;
 
 	if(brand == "" || model == "" || os == "" || image == "" || screensize == "") {
 		res.sendStatus(400);
@@ -269,7 +273,7 @@ router.put('/reset', function(req, res){
 
 				db.serialize(function() {
 
-					db.run(`CREATE TABLE IF NOT EXISTS "phones" ("id" INTEGER NOT NULL UNIQUE, "brand" TEXT NOT NULL, "model" TEXT NOT NULL, "os" TEXT NOT NULL, "image" TEXT NOT NULL, "screensize" INTEGER NOT NULL, PRIMARY KEY("id" AUTOINCREMENT))`, function(err) {
+					db.run(`CREATE TABLE IF NOT EXISTS phones ("id" INTEGER NOT NULL UNIQUE, "brand" CHAR(100) NOT NULL, "model" CHAR(100) NOT NULL, "os" CHAR(10) NOT NULL, "image" CHAR(254) NOT NULL, "screensize" INTEGER NOT NULL, PRIMARY KEY("id" AUTOINCREMENT))`, function(err) {
 						if(err){
 
 							console.error(err.message);
