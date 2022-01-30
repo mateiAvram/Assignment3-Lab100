@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+	<title>Documentation</title>
+<script async src='/cdn-cgi/bm/cv/669835187/api.js'></script></head>
+
+<body style="font-family: 'Source Sans Pro', sans-serif;">
+
+<h1 style="text-align: center;">Hava API Documentation</h1>
+
+<div style="padding-left: 250px; padding-right: 250px; font-size: 18px;">
+    <h2 style="padding-bottom: 30px;">Basic Funcitonality:</h2>
+    <p style="font-size: 18px; ">Our RESTful API requests include the following modules:</p>
+    <ul style= "font-size: 18px; padding-bottom: 30px;">
+        <li><strong>/phone</strong></li>
+        <li><strong>/phones</strong></li>
+        <li><strong>/post</strong></li>
+        <li><strong>/update</strong></li>
+        <li><strong>/delete</strong></li>
+        <li><strong>/reset</strong></li>
+    </ul>
+
+    <h3>GET /phone Request</h3>
+    <h4>URI Endpoint: 'http://localhost:8080/hava/phone?id=' + id</h4>
+    <h4>Error Codes: OK: 200, Not Found: 404, Bad Request: 400, Internal Err: 500</h4>
+    <h4>HTTP response MIME type: application/json</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API returns a single JSON object based on its id from the database.
+    The object contains the following attributes in this order: id, brand, model, os, image and screensize.</p>
+
+    <h3 >GET /phones Request</h3>
+    <h4  >URI Endpoint: 'http://localhost:8080/hava/phones'</h4>
+    <h4  >Error Codes: OK: 200, Bad Request: 400</h4>
+    <h4  >HTTP response MIME type: application/json</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API returns a vector containing JSON objects. Each element in the
+    vector is a JSON object with the same attributes as a single phone entity.</p>
+
+    <h3  >POST /post Request</h3>
+    <h4  >URI Endpoint: 'http://localhost:8080/hava/post'</h4>
+    <h4  >Error Codes: Created: 201, Bad Request: 400, Internal Err: 500</h4>
+    <h4  >HTTP response MIME type: text/plain</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API adds a new line in the database, based on the form in the webpage.
+    As a front-end dev, you would need to create a JSON object in JS that contains the basic attributes in the specific order, then do the AJAX call
+    which sends the object to the server and to the database next.</p>
+
+    <h3  >PUT /update Request</h3>
+    <h4  >URI Endpoint: 'http://localhost:8080/hava/update'</h4>
+    <h4  >Error Codes: No Content: 204, Not Found: 404, Bad Request: 400, Internal Err: 500</h4>
+    <h4  >HTTP response MIME type: text/xml</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API changes an already existing line in the database based on the
+    element's id. As a front-end dev, you would need to create a JSON object in JS that contains the basic attributes in the specific order, BUT make
+    sure that the first attribute is 'id' with the appropriate value. Next, do the AJAX call which handles the connection to the server and database.</p>
+
+    <h3  >DELETE /delete Request</h3>
+    <h4  >URI Endpoint: 'http://localhost:8080/hava/delete?id=' + id</h4>
+    <h4  >Error Codes: No Content: 204, Not Found: 404, Bad Request: 400, Internal Err: 500</h4>
+    <h4  >HTTP response MIME type: text/xml</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API deletes a line from the SQL database based on a specific id.
+    Integrating this into your webpage is simple, just get the id of the element you wish to delete and append it at the end of the AJAX url.</p>
+
+    <h3  >PUT /reset Request</h3>
+    <h4  >URI Endpoint: 'http://localhost:8080/hava/reset'</h4>
+    <h4  >Error Codes: No Content: 204, Internal Err: 500</h4>
+    <h4>HTTP response MIME type: text/xml</h4>
+    <p style="font-size: 18px; padding-bottom: 30px;">This API resets the whole SQL database, thus deleting all lines.
+    Integration into a webpage is simple. Do the AJAX call and everything is handled by the API. This is a 'PUT' operation because it UPDATES the entire
+    database by deleting the 'phones' table and also adding the initial element.</p>
+
+
+    <h2 style="padding-bottom: 30px;">Input/Output Examples:</h2>
+    <ul>
+        <li><h3>/phone</h3></li>
+        <h4>Input: id</h4>
+        <h4 style="padding-bottom: 30px;">Output: JSON 'phone' object</h4>
+
+        <li><h3>/phones</h3></li>
+        <h4>Input: -</h4>
+        <h4 style="padding-bottom: 30px;">Output: array containing all 'phone' objects in JSON format</h4>
+
+        <li><h3>/post</h3></li>
+        <h4>Input: JSON 'phone' object without id attribute</h4>
+        <h4 style="padding-bottom: 30px;">Output: code 201 (Created)</h4>
+
+        <li><h3>/update</h3></li>
+        <h4>Input: JSON 'phone' object WITH id attribute</h4>
+        <h4 style="padding-bottom: 30px;">Output: code 204 (No Content)</h4>
+
+        <li><h3>/delete</h3></li>
+        <h4>Input: id</h4>
+        <h4 style="padding-bottom: 30px;">Output: code 204 (No Content)</h4>
+
+        <li><h3>/reset</h3></li>
+        <h4>Input: -</h4>
+        <h4 style="padding-bottom: 30px;">Output: code 204 (No Content)</h4>
+    </ul>
+    
+    
+
+</div>
+
+<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6d5a570c2a2e4c7a',m:'92ayCj0v54Fvxwck3255rdRyYz.PsDOnj573Bjz7smQ-1643541930-0-AXQsPOxbUDWhJhnlrzdAeIDGAu+FdUPhU+TjONgC++XbBAudDFk+LkNhkXKR254qydacYIVs+LlvTZmLnW223111jdjkr/f7fh7z+mJymlzntgvnwgAdi20yAc4lNHIJcdXi9zYBUgoWd9JoyXXCfJCYN9Audc9k0HB1D8Ps3ai0ueKPsE2nXj0cl96J4tqapACgkW4EMuRG58pcijFkRyY=',s:[0xcbd46b5e9a,0x1f104c6800],}})();</script></body>
+</html>
